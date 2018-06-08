@@ -61,48 +61,34 @@ Storing mixer settings:
 ```
 sudo alsactl store
 ```
-Example configuration (audio jack output + USB mic input):
+Example configuration (audio jack output + USB mic input with volume boost):
 ```
-pcm.usb
-{
-    type hw
-    card RECORD_DEVICE_NAME
+pcm.jack_speaker {
+        type hw
+        card 0
+        device 0
 }
 
-pcm.internal
-{
-    type hw
-    card PLAYBACK_DEVICE_NAME
+pcm.usb_mic {
+        type hw
+        card 1
+        device 0
 }
 
-pcm.!default
-{
-    type asym
-    playback.pcm
-    {
-        type plug
-        slave.pcm "internal"
-    }
-    capture.pcm
-    {
-        type plug
-        slave.pcm "usb"
-    }
+pcm.mic_boost {
+        type softvol
+        slave.pcm "usb_mic"
+        control {
+                name "Mic Boost"
+        }
+        min_dB -5.0
+        max_dB 40.0
 }
 
-ctl.!default
-{
-    type asym
-    playback.pcm
-    {
-        type plug
-        slave.pcm "internal"
-    }
-    capture.pcm
-    {
-        type plug
-        slave.pcm "usb"
-    }
+pcm.!default {
+        type asym
+        playback.pcm "jack_speaker"
+        capture.pcm "mic_boost"
 }
 ```
 
