@@ -44,10 +44,24 @@ pcm.dsnoop cards.pcm.dsnoop
 ```
 
 
-## ALSA configuration: default audio jack + USB mic setting
+## ALSA configuration
+Editing config:
 ```shell
 sudo nano /etc/asound.conf
 ```
+Reloading config:
+```shell
+sudo alsactl restore
+```
+Editing mixer settings:
+```
+alsamixer
+```
+Storing mixer settings:
+```
+sudo alsactl store
+```
+Example configuration (audio jack output + USB mic input):
 ```
 pcm.usb
 {
