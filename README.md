@@ -149,3 +149,7 @@ interface wlan0
   static routers=192.168.0.1
   static domain_name_servers=62.179.1.61 62.179.1.63
 ```
+
+## Add support for 433 MHz radio transmission:
+https://github.com/milaq/rpi-rf
+
