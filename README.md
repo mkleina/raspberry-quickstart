@@ -104,6 +104,9 @@ pcm.!default {
 }
 ```
 
+## Aplay or Arecord does not work from sudo?
+Try to remove `/root/.asoundrc`
+
 
 ## Install libssl 1.0 for Domoticz
 ```shell
