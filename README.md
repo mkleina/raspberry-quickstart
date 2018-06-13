@@ -64,35 +64,23 @@ sudo alsactl store
 Example configuration (audio jack output + USB mic input with volume boost):
 ```
 pcm.jack_speaker {
-        type plug
-        slave {
-                pcm {
-                        type hw
-                        card 0
-                        device 0
-                }
-        }
+        type hw
+        card 0
+        device 0
 }
 
 pcm.usb_mic {
-        type plug
-        slave {
-                pcm {
-                        type hw
-                        card 1
-                        device 0
-                }
-        }
+        type hw
+        card 1
+        device 0
+        format S16_LE
+        rate 44100
 }
 
 pcm.mic_boost {
         type softvol
-        slave {
-                pcm "usb_mic"
-        }
-        control {
-                name "Mic Boost"
-        }
+        slave.pcm "usb_mic"
+        control.name "Mic Boost"
         min_dB -5.0
         max_dB 40.0
 }
@@ -100,7 +88,7 @@ pcm.mic_boost {
 pcm.!default {
         type asym
         playback.pcm "jack_speaker"
-        capture.pcm "mic_boost"
+        capture.pcm "plug:mic_boost"
 }
 ```
 
